@@ -90,7 +90,7 @@ function CatalogPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 p-4">
+        <div className="h-[100vh] w-[100vw] rounded-[0px] bg-gradient-to-br from-amber-50 to-orange-100 p-4">
             {/* Header */}
             <div className="text-center mb-6 pt-8">
                 <h1 className="text-2xl font-bold text-brown-800 mb-2">Menu</h1>
@@ -105,7 +105,7 @@ function CatalogPage() {
             )}
 
             {/* Menu Items */}
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 gap-4 overflow-y-auto h-[calc(100vh-250px)]">
                 {menuItems.map((item) => (
                     <div key={item.id} className="bg-white rounded-lg p-4 shadow-md">
                         <div className="flex items-center justify-between">

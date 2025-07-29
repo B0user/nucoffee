@@ -19,7 +19,7 @@ function Navigation({ styled = false }) {
         <div
             className={
                 !styled
-                    ? "w-full h-[60px] pb-9 flex justify-between items-center fixed bottom-1 bg-white z-10 pt-5"
+                    ? "w-full h-[60px] pb-9 flex justify-between items-center fixed bottom-0 bg-white z-10 pt-5"
                     : "w-[100vw] h-[60px] pb-9 flex justify-between items-center bg-white z-10"
             }
             style={{ borderTop: "1px solid #f2dddf" }}
@@ -30,8 +30,8 @@ function Navigation({ styled = false }) {
                     className="w-[28px] cursor-pointer"
                     src={
                         getCurrentPage() === "homepage"
-                            ? "/images/icons/home_active.png"
-                            : "/images/icons/home.png"
+                            ? "/images/icons/nav-home-active.svg"
+                            : "/images/icons/nav-home.svg"
                     }
                     onClick={() => navigate("/")}
                     alt="Home Icon"
@@ -44,8 +44,8 @@ function Navigation({ styled = false }) {
                     className="w-[28px] cursor-pointer"
                     src={
                         getCurrentPage() === "catalog"
-                            ? "/images/icons/catalog_active.png"
-                            : "/images/icons/catalog.png"
+                            ? "/images/icons/nav-catalog-active.svg"
+                            : "/images/icons/nav-catalog.svg"
                     }
                     onClick={() => navigate("/catalog")}
                     alt="Catalog Icon"
@@ -58,8 +58,8 @@ function Navigation({ styled = false }) {
                     className="w-[28px] cursor-pointer"
                     src={
                         getCurrentPage() === "cart"
-                            ? "/images/icons/cart_active.png"
-                            : "/images/icons/cart.png"
+                            ? "/images/icons/nav-cart-active.svg"
+                            : "/images/icons/nav-cart.svg"
                     }
                     onClick={() => navigate("/cart")}
                     alt="Cart Icon"
@@ -72,8 +72,8 @@ function Navigation({ styled = false }) {
                     className="w-[28px] cursor-pointer"
                     src={
                         getCurrentPage() === "profile"
-                            ? "/images/icons/profile_active.png"
-                            : "/images/icons/profile.png"
+                            ? "/images/icons/nav-profile-active.svg"
+                            : "/images/icons/nav-profile.svg"
                     }
                     onClick={() => navigate("/profile")}
                     alt="Profile Icon"
