@@ -8,12 +8,14 @@ function Navigation({ styled = false }) {
     // Определяем текущую страницу по пути URL
     const getCurrentPage = () => {
         const path = location.pathname;
-        if (path.startsWith("/")) return "homepage";
-        if (path.startsWith("/catalog")) return "catalog";
-        if (path.startsWith("/cart")) return "cart";
-        if (path.startsWith("/profile")) return "profile";
+        if (path === "/" || path === "/home") return "homepage";
+        if (path === "/catalog") return "catalog";
+        if (path === "/cart") return "cart";
+        if (path === "/profile") return "profile";
         return "homepage";
     };
+
+    const currentPage = getCurrentPage();
 
     return (
         <div
@@ -29,7 +31,7 @@ function Navigation({ styled = false }) {
                 <img
                     className="w-[28px] cursor-pointer"
                     src={
-                        getCurrentPage() === "homepage"
+                        currentPage === "homepage"
                             ? "/images/icons/nav-home-active.svg"
                             : "/images/icons/nav-home.svg"
                     }
@@ -43,7 +45,7 @@ function Navigation({ styled = false }) {
                 <img
                     className="w-[28px] cursor-pointer"
                     src={
-                        getCurrentPage() === "catalog"
+                        currentPage === "catalog"
                             ? "/images/icons/nav-catalog-active.svg"
                             : "/images/icons/nav-catalog.svg"
                     }
@@ -57,7 +59,7 @@ function Navigation({ styled = false }) {
                 <img
                     className="w-[28px] cursor-pointer"
                     src={
-                        getCurrentPage() === "cart"
+                        currentPage === "cart"
                             ? "/images/icons/nav-cart-active.svg"
                             : "/images/icons/nav-cart.svg"
                     }
@@ -71,7 +73,7 @@ function Navigation({ styled = false }) {
                 <img
                     className="w-[28px] cursor-pointer"
                     src={
-                        getCurrentPage() === "profile"
+                        currentPage === "profile"
                             ? "/images/icons/nav-profile-active.svg"
                             : "/images/icons/nav-profile.svg"
                     }

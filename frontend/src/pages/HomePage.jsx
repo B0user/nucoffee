@@ -5,44 +5,48 @@ function HomePage() {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 p-4">
+        <div className="min-h-screen bg-[#EEECD8] p-4">
             {/* Header */}
             <div className="text-center mb-8 pt-8">
-                <h1 className="text-3xl font-bold text-brown-800 mb-2">NuCoffee</h1>
-                <p className="text-brown-600">Your perfect coffee companion</p>
+                <img 
+                    src="/nucoffee.svg" 
+                    alt="NuCoffee" 
+                    className="w-auto h-24 mx-auto mb-4"
+                />
+                <p className="text-[#734E46]">Ваш идеальный кофейный компаньон</p>
             </div>
 
             {/* Welcome Section */}
             <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
-                <h2 className="text-xl font-semibold text-brown-800 mb-3">Welcome! ☕</h2>
-                <p className="text-brown-600 mb-4">
-                    Discover our carefully crafted coffee selection and place your order with ease.
+                <h2 className="text-xl font-semibold text-[#734E46] mb-3">Добро пожаловать! ☕</h2>
+                <p className="text-[#734E46] mb-4">
+                    Откройте для себя нашу тщательно подобранную коллекцию кофе и легко размещайте заказы.
                 </p>
                 <button 
                     onClick={() => navigate('/catalog')}
-                    className="bg-brown-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-brown-700 transition-colors"
+                    className="bg-[#1223A1] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#0f1d8a] transition-colors"
                 >
-                    Browse Menu
+                    Просмотреть меню
                 </button>
             </div>
 
             {/* Featured Items */}
             <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
-                <h3 className="text-lg font-semibold text-brown-800 mb-4">Today's Specials</h3>
+                <h3 className="text-lg font-semibold text-[#734E46] mb-4">Специальные предложения дня</h3>
                 <div className="grid grid-cols-2 gap-4">
                     <div className="text-center">
-                        <div className="w-16 h-16 bg-brown-200 rounded-full mx-auto mb-2 flex items-center justify-center">
+                        <div className="w-16 h-16 bg-[#FFD483] rounded-full mx-auto mb-2 flex items-center justify-center">
                             <span className="text-2xl">☕</span>
                         </div>
-                        <p className="text-sm font-medium text-brown-800">Espresso</p>
-                        <p className="text-xs text-brown-600">$2.50</p>
+                        <p className="text-sm font-medium text-[#734E46]">Айс Латте</p>
+                        <p className="text-xs text-[#734E46]">₸1200</p>
                     </div>
                     <div className="text-center">
-                        <div className="w-16 h-16 bg-brown-200 rounded-full mx-auto mb-2 flex items-center justify-center">
+                        <div className="w-16 h-16 bg-[#FFD483] rounded-full mx-auto mb-2 flex items-center justify-center">
                             <span className="text-2xl">🥛</span>
                         </div>
-                        <p className="text-sm font-medium text-brown-800">Cappuccino</p>
-                        <p className="text-xs text-brown-600">$3.50</p>
+                        <p className="text-sm font-medium text-[#734E46]">Мохито Лимонад</p>
+                        <p className="text-xs text-[#734E46]">₸800</p>
                     </div>
                 </div>
             </div>
@@ -51,17 +55,17 @@ function HomePage() {
             <div className="grid grid-cols-2 gap-4">
                 <button 
                     onClick={() => navigate('/cart')}
-                    className="bg-brown-600 text-white p-4 rounded-lg text-center hover:bg-brown-700 transition-colors"
+                    className="bg-[#1223A1] text-white p-4 rounded-lg text-center hover:bg-[#0f1d8a] transition-colors"
                 >
                     <div className="text-2xl mb-2">🛒</div>
-                    <div className="text-sm font-medium">View Cart</div>
+                    <div className="text-sm font-medium">Корзина</div>
                 </button>
                 <button 
                     onClick={() => navigate('/profile')}
-                    className="bg-brown-100 text-brown-800 p-4 rounded-lg text-center hover:bg-brown-200 transition-colors"
+                    className="bg-[#FFD483] text-[#734E46] p-4 rounded-lg text-center hover:bg-[#f0c870] transition-colors"
                 >
                     <div className="text-2xl mb-2">👤</div>
-                    <div className="text-sm font-medium">Profile</div>
+                    <div className="text-sm font-medium">Профиль</div>
                 </button>
             </div>
         </div>

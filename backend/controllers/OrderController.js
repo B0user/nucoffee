@@ -13,13 +13,9 @@ export const createOrder = async (req, res) => {
         }
 
         const {
-            userId,
+            client,
             items,
-            totalAmount,
-            deliveryAddress,
-            deliveryTime,
-            specialInstructions,
-            paymentMethod
+            totalAmount
         } = req.body;
 
         // Validate user exists
@@ -43,13 +39,9 @@ export const createOrder = async (req, res) => {
         // }
 
         const newOrder = new Order({
-            userId,
+            client,
             items,
-            totalAmount,
-            deliveryAddress,
-            deliveryTime,
-            specialInstructions,
-            paymentMethod
+            totalAmount
         });
 
         const savedOrder = await newOrder.save();

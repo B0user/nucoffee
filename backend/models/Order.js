@@ -22,10 +22,19 @@ const OrderItemSchema = new mongoose.Schema({
 });
 
 const OrderSchema = new mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+    client: {
+        name: {
+            type: String,
+            required: true
+        },
+        phone: {
+            type: String,
+            required: true
+        },
+        email: {
+            type: String,
+            required: true
+        }
     },
     items: [OrderItemSchema],
     totalAmount: {
@@ -38,23 +47,23 @@ const OrderSchema = new mongoose.Schema({
         enum: ['pending', 'confirmed', 'preparing', 'ready', 'delivered', 'cancelled'],
         default: 'pending'
     },
-    deliveryAddress: {
-        type: String,
-        default: ""
-    },
-    deliveryTime: {
-        type: String,
-        default: ""
-    },
-    specialInstructions: {
-        type: String,
-        default: ""
-    },
-    paymentMethod: {
-        type: String,
-        enum: ['cash', 'card', 'online'],
-        default: 'cash'
-    },
+    // deliveryAddress: {
+    //     type: String,
+    //     default: ""
+    // },
+    // deliveryTime: {
+    //     type: String,
+    //     default: ""
+    // },
+    // specialInstructions: {
+    //     type: String,
+    //     default: ""
+    // },
+    // paymentMethod: {
+    //     type: String,
+    //     enum: ['cash', 'card', 'online'],
+    //     default: 'cash'
+    // },
     isPaid: {
         type: Boolean,
         default: false
