@@ -1,3 +1,4 @@
+import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import { FiltersProvider } from "./context/FiltersContext";
 import { CartProvider } from "./context/CartContext";

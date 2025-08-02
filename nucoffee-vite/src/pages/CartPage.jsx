@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import { registerUser, createOrder } from '../services/api';
+import { AnimatePresence, motion } from "framer-motion";
+
+// import { registerUser, createOrder } from '../services/api';
 
 function CartPage() {
     const navigate = useNavigate();
@@ -219,7 +221,7 @@ function CartPage() {
             </button>
 
             {/* User Registration Modal */}
-            {showUserModal && (
+            {/* {showUserModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
                     <div className="bg-white rounded-lg p-6 w-full max-w-md">
                         <h2 className="text-xl font-bold text-[#734E46] mb-4">Регистрация</h2>
@@ -287,7 +289,89 @@ function CartPage() {
                         </div>
                     </div>
                 </div>
+            )} */}
+            <AnimatePresence>
+            {showUserModal && (
+                <motion.div
+                className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                >
+                <motion.div
+                    className="bg-white rounded-lg p-6 w-full max-w-md"
+                    initial={{ y: -50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -50, opacity: 0 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                >
+                    <h2 className="text-xl font-bold text-[#734E46] mb-4">Регистрация</h2>
+                        <p className="text-[#734E46] mb-4">Пожалуйста, введите ваши данные для оформления заказа</p>
+                        
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-[#734E46] text-sm font-medium mb-2">
+                                    ФИО *
+                                </label>
+                                <input
+                                    type="text"
+                                    value={userInfo.name}
+                                    onChange={(e) => setUserInfo({...userInfo, name: e.target.value})}
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#1223A1]"
+                                    placeholder="Иван Иванов"
+                                    disabled={isSubmitting}
+                                />
+                            </div>
+                            
+                            <div>
+                                <label className="block text-[#734E46] text-sm font-medium mb-2">
+                                    Номер телефона (Kaspi) *
+                                </label>
+                                <input
+                                    type="tel"
+                                    value={userInfo.phone}
+                                    onChange={(e) => setUserInfo({...userInfo, phone: e.target.value})}
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#1223A1]"
+                                    placeholder="+77012345678"
+                                    disabled={isSubmitting}
+                                />
+                            </div>
+                            
+                            <div>
+                                <label className="block text-[#734E46] text-sm font-medium mb-2">
+                                    Email *
+                                </label>
+                                <input
+                                    type="email"
+                                    value={userInfo.email}
+                                    onChange={(e) => setUserInfo({...userInfo, email: e.target.value})}
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#1223A1]"
+                                    placeholder="ivan@example.com"
+                                    disabled={isSubmitting}
+                                />
+                            </div>
+                        </div>
+                        
+                        <div className="flex space-x-3 mt-6">
+                            <button
+                                onClick={() => setShowUserModal(false)}
+                                className="flex-1 bg-gray-300 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-400 transition-colors"
+                                disabled={isSubmitting}
+                            >
+                                Отмена
+                            </button>
+                            <button
+                                onClick={handleUserSubmit}
+                                className="flex-1 bg-[#1223A1] text-white py-3 rounded-lg font-medium hover:bg-[#0f1d8a] transition-colors disabled:opacity-50"
+                                disabled={isSubmitting}
+                            >
+                                {isSubmitting ? 'Обработка...' : 'Подтвердить'}
+                            </button>
+                        </div>
+                </motion.div>
+                </motion.div>
             )}
+            </AnimatePresence>
         </div>
     );
 }

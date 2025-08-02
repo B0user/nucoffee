@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { motion, AnimatePresence } from "framer-motion";
+
 
 function CatalogPage() {
     const navigate = useNavigate();
@@ -10,6 +12,45 @@ function CatalogPage() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [itemToDelete, setItemToDelete] = useState(null);
     const [quantity, setQuantity] = useState(1);
+
+    const modalRef = useRef();
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (modalRef.current && !modalRef.current.contains(e.target)) {
+                closeModal();
+            }
+        };
+
+        if (showModal) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [showModal]);
+
+    const touchStartY = useRef(null);
+
+    const handleTouchStart = (e) => {
+        touchStartY.current = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e) => {
+        if (!touchStartY.current) return;
+
+        const currentY = e.touches[0].clientY;
+        const deltaY = currentY - touchStartY.current;
+
+        // Swipe threshold in px
+        if (deltaY > 100) {
+            closeModal();
+            touchStartY.current = null;
+        }
+    };
+
+
 
     const menuItems = [
         {
@@ -272,9 +313,103 @@ function CatalogPage() {
             )}
 
             {/* Modal */}
+            <AnimatePresence>
             {showModal && selectedItem && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-end z-50">
-                    <div className="bg-white w-full h-1/2 rounded-t-3xl p-6">
+                <motion.div
+                className="fixed inset-0 bg-black bg-opacity-50 flex items-end z-50"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                >
+                <motion.div
+                    ref={modalRef}
+                    className="bg-white w-full h-1/2 rounded-t-3xl p-6"
+                    initial={{ y: "100%" }}
+                    animate={{ y: 0 }}
+                    exit={{ y: "100%" }}
+                    transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                >
+                    {/* Your modal content here */}
+                    <div className="flex items-center justify-between mb-4">
+                            <h2 className="text-xl font-bold text-[#734E46]">{selectedItem.name}</h2>
+                            <button 
+                                onClick={closeModal}
+                                className="text-[#734E46] text-2xl"
+                            >
+                                ×
+                            </button>
+                        </div>
+                        
+                        <div className="flex items-center space-x-4 mb-6">
+                            <div className="w-24 h-24 bg-[#FFD483] rounded-lg flex items-center justify-center overflow-hidden">
+                                <img 
+                                    src={selectedItem.image} 
+                                    alt={selectedItem.name}
+                                    className="w-full h-full object-cover"
+                                    onError={(e) => {
+                                        e.target.style.display = 'none';
+                                        e.target.nextSibling.style.display = 'flex';
+                                    }}
+                                />
+                                <div className="w-full h-full bg-[#FFD483] rounded-lg flex items-center justify-center text-3xl" style={{display: 'none'}}>
+                                    🍽️
+                                </div>
+                            </div>
+                            <div className="flex-1">
+                                <p className="text-sm text-[#734E46] mb-2">{selectedItem.description}</p>
+                                <p className="text-lg font-bold text-[#734E46]">₸{selectedItem.price.toFixed(0)}</p>
+                                {getCartQuantity(selectedItem.id) > 0 && (
+                                    <p className="text-sm text-[#1223A1] font-medium mt-2">
+                                        В корзине: {getCartQuantity(selectedItem.id)}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="flex items-center justify-center space-x-4 mb-6">
+                            <button
+                                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                                className="w-10 h-10 bg-[#FFD483] text-[#734E46] rounded-full flex items-center justify-center text-xl font-bold"
+                            >
+                                -
+                            </button>
+                            <span className="text-2xl font-bold text-[#734E46] w-12 text-center">{quantity}</span>
+                            <button
+                                onClick={() => setQuantity(quantity + 1)}
+                                className="w-10 h-10 bg-[#1223A1] text-white rounded-full flex items-center justify-center text-xl font-bold"
+                            >
+                                +
+                            </button>
+                        </div>
+
+                        <button
+                            onClick={handleAddToCart}
+                            className="w-full bg-[#1223A1] text-white py-4 rounded-lg font-semibold text-lg hover:bg-[#0f1d8a] transition-colors"
+                        >
+                            {quantity > getCartQuantity(selectedItem.id) ? 'Добавить в корзину' : 'Обновить количество'}
+                        </button>
+                        
+                        <p className="text-center text-sm text-[#734E46] mt-2">
+                            ₸{(selectedItem.price * quantity).toFixed(0)}
+                        </p>
+                </motion.div>
+                </motion.div>
+            )}
+            </AnimatePresence>
+
+            {/* {showModal && selectedItem && (
+                <div
+                    className="fixed inset-0 bg-black bg-opacity-50 flex items-end z-50"
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                >
+                    <div
+                        ref={modalRef}
+                        className="bg-white w-full h-1/2 rounded-t-3xl p-6"
+                    >
+
                         <div className="flex items-center justify-between mb-4">
                             <h2 className="text-xl font-bold text-[#734E46]">{selectedItem.name}</h2>
                             <button 
@@ -339,7 +474,7 @@ function CatalogPage() {
                         </p>
                     </div>
                 </div>
-            )}
+            )} */}
 
             {/* Delete Confirmation Modal */}
             {showDeleteModal && itemToDelete && (
