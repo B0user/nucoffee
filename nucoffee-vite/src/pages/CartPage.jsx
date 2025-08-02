@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { AnimatePresence, motion } from "framer-motion";
 
-// import { registerUser, createOrder } from '../services/api';
+import { registerUser, createOrder } from '../services/api';
 
 function CartPage() {
     const navigate = useNavigate();
@@ -44,22 +44,24 @@ function CartPage() {
         setIsSubmitting(true);
 
         try {
-            // Register user first
-            const userResponse = await registerUser({
-                name: userInfo.name,
-                phone: userInfo.phone,
-                email: userInfo.email
-            });
+            // console.log('registerUser is:', registerUser);
 
-            console.log('User registered:', userResponse);
+            // Register user first
+            // const userResponse = await registerUser({
+            //     name: userInfo.name,
+            //     phone: userInfo.phone,
+            //     email: userInfo.email
+            // });
+
+            // console.log('User registered:', userResponse);
 
             // Set user as registered
             setIsUserRegistered(true);
-            setRegisteredUser(userResponse);
+            // setRegisteredUser(userResponse);
 
             // Close modal and proceed with order creation
             setShowUserModal(false);
-            setUserInfo({ name: '', phone: '', email: '' });
+            // setUserInfo({ name: '', phone: '', email: '' });
             
             // Create order
             await handleCreateOrder();
@@ -84,9 +86,9 @@ function CartPage() {
             // Create order JSON
             const orderData = {
                 client: {
-                    name: registeredUser?.name || userInfo.name,
-                    phone: registeredUser?.phone || userInfo.phone,
-                    email: registeredUser?.email || userInfo.email
+                    name: userInfo?.name || userInfo.name,
+                    phone: userInfo?.phone || userInfo.phone,
+                    email: userInfo?.email || userInfo.email
                 },
                 items: cart.map(item => ({
                     name: item.name,

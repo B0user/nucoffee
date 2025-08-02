@@ -5,12 +5,13 @@ import { validationResult } from 'express-validator';
 // Create new user (Register)
 export const register = async (req, res) => {
     try {
+        console.log('req.body is:', req.body);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { email, password, name, phone, telegramId, telegramUsername } = req.body;
+        const { email, name, phone} = req.body;
 
         // Check if user already exists
         const existingUser = await User.findByEmail(email);
@@ -21,11 +22,8 @@ export const register = async (req, res) => {
         // Create new user
         const user = new User({
             email,
-            password,
             name,
-            phone,
-            telegramId,
-            telegramUsername
+            phone
         });
 
         const savedUser = await user.save();

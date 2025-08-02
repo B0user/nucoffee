@@ -10,16 +10,6 @@ const UserSchema = new mongoose.Schema({
         trim: true,
         lowercase: true
     },
-    password: {
-        type: String,
-        required: true,
-        minlength: 6
-    },
-    role: {
-        type: String,
-        enum: ['user', 'admin'],
-        default: 'user'
-    },
 
     // Profile Information
     name: {
@@ -32,11 +22,6 @@ const UserSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
-    avatar: {
-        type: String,
-        default: ""
-    },
-
     // Coffee Preferences
     favoriteDrinks: [{
         type: String,
@@ -125,16 +110,6 @@ const UserSchema = new mongoose.Schema({
             type: Boolean,
             default: true
         }
-    },
-
-    // Social/Telegram Integration
-    telegramId: {
-        type: String,
-        trim: true
-    },
-    telegramUsername: {
-        type: String,
-        trim: true
     },
 
     // Timestamps

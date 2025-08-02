@@ -1,34 +1,36 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:2004/api/send-order'; // change to production domain when deploying
+// Load from .env
+const CHAT_IDS = process.env.TELEGRAM_CHAT_IDS?.split(',') || [];
+const API_URL = process.env.TELEGRAM_NOTIFICATION_URL;
 
-const sendOrderNotification = async (order, user) => {
+
+export const sendOrderNotification = async (order, user) => {
     try {
-        // Prepare items for message
         const formattedItems = order.items.map((item) => ({
             name: item.name || 'Unknown Item',
             quantity: item.quantity,
-            price: item.price
+            price: item.price,
         }));
 
-        // Construct payload
-        const payload = {
-            chatId: user.telegramId, // or use a fixed admin ID if needed
+        const payloadBase = {
             order: {
                 items: formattedItems,
-                total: order.totalAmount
+                total: order.totalCost,
             },
-            client: {
-                name: user.name,
-                phone: user.phone || '—',
-                email: user.email || '—'
-            }
+            client: order.client
         };
 
-        // Send to internal API
-        await axios.post(API_URL, payload);
+        // Loop over each chat ID and send notification
+        for (const chatId of CHAT_IDS) {
+            const payload = { ...payloadBase, chatId: chatId.trim() };
+
+            await axios.post(API_URL, payload);
+        }
+
+        console.log('✅ Telegram notifications sent');
     } catch (error) {
-        console.error('Failed to send Telegram notification:', error.message);
+        console.error('❌ Failed to send Telegram notification:', error.message);
     }
 };
 

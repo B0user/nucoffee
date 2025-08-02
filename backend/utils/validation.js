@@ -139,16 +139,7 @@ export const validateRegister = [
     body('phone')
         .trim()
         .isLength({ min: 10, max: 15 })
-        .withMessage('Phone number must be between 10 and 15 characters'),
-    body('telegramId')
-        .trim()
-        .isLength({ min: 1, max: 50 })
-        .withMessage('Telegram ID must be between 1 and 50 characters'),
-    body('telegramUsername')
-        .optional()
-        .trim()
-        .isLength({ min: 1, max: 50 })
-        .withMessage('Telegram username must be between 1 and 50 characters')
+        .withMessage('Phone number must be between 10 and 15 characters')
 ];
 
 export const validateLogin = [

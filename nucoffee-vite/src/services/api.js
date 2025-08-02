@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 // Base URL for API
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+const API_BASE_URL = 'https://backend.nucoffee.kz';
+// const API_BASE_URL = 'http://localhost:3001/';
 
 // Create axios instance
 const api = axios.create({
@@ -14,7 +15,7 @@ const api = axios.create({
 // User registration
 export const registerUser = async (userData) => {
     try {
-        const response = await api.post('/register', userData);
+        const response = await api.post('/users/register', userData);
         return response.data;
     } catch (error) {
         console.error('Error registering user:', error);

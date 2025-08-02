@@ -12,7 +12,7 @@ import {
 } from '../utils/validation.js';
 
 
-router.post('/', checkAuth, validateCreateOrder, OrderController.createOrder);
+router.post('/', OrderController.createOrder);
 // router.get('/', checkAdmin, validateOrderQuery, OrderController.getAllOrders);
 // router.get('/:id', checkAuth, validateOrderId, OrderController.getOrderById);
 // router.get('/user/:userId', checkAuth, validateUserId, OrderController.getUserOrders);

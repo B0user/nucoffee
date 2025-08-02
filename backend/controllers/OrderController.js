@@ -7,6 +7,7 @@ import telegramBot from '../utils/telegramBot.js';
 // Create new order
 export const createOrder = async (req, res) => {
     try {
+        console.log('req.body is:', req.body);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
@@ -15,14 +16,14 @@ export const createOrder = async (req, res) => {
         const {
             client,
             items,
-            totalAmount
+            totalCost
         } = req.body;
 
         // Validate user exists
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
+        // const user = await User.findById(userId);
+        // if (!user) {
+        //     return res.status(404).json({ message: 'User not found' });
+        // }
 
         // Validate items exist and are available
         // for (const item of items) {
@@ -41,7 +42,7 @@ export const createOrder = async (req, res) => {
         const newOrder = new Order({
             client,
             items,
-            totalAmount
+            totalCost
         });
 
         const savedOrder = await newOrder.save();
@@ -56,7 +57,7 @@ export const createOrder = async (req, res) => {
         // Send order to admin via Telegram
         // userId or chatId difference?
         // savedOrder format
-        await telegramBot.sendOrderNotification(savedOrder, user);
+        await telegramBot.sendOrderNotification(savedOrder, "729235371");
 
         res.status(201).json(savedOrder);
     } catch (error) {
