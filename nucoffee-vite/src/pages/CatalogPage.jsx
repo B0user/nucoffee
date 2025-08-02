@@ -399,87 +399,10 @@ function CatalogPage() {
             )}
             </AnimatePresence>
 
-            {/* {showModal && selectedItem && (
-                <div
-                    className="fixed inset-0 bg-black bg-opacity-50 flex items-end z-50"
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                >
-                    <div
-                        ref={modalRef}
-                        className="bg-white w-full h-1/2 rounded-t-3xl p-6"
-                    >
-
-                        <div className="flex items-center justify-between mb-4">
-                            <h2 className="text-xl font-bold text-[#734E46]">{selectedItem.name}</h2>
-                            <button 
-                                onClick={closeModal}
-                                className="text-[#734E46] text-2xl"
-                            >
-                                ×
-                            </button>
-                        </div>
-                        
-                        <div className="flex items-center space-x-4 mb-6">
-                            <div className="w-24 h-24 bg-[#FFD483] rounded-lg flex items-center justify-center overflow-hidden">
-                                <img 
-                                    src={selectedItem.image} 
-                                    alt={selectedItem.name}
-                                    className="w-full h-full object-cover"
-                                    onError={(e) => {
-                                        e.target.style.display = 'none';
-                                        e.target.nextSibling.style.display = 'flex';
-                                    }}
-                                />
-                                <div className="w-full h-full bg-[#FFD483] rounded-lg flex items-center justify-center text-3xl" style={{display: 'none'}}>
-                                    🍽️
-                                </div>
-                            </div>
-                            <div className="flex-1">
-                                <p className="text-sm text-[#734E46] mb-2">{selectedItem.description}</p>
-                                <p className="text-lg font-bold text-[#734E46]">₸{selectedItem.price.toFixed(0)}</p>
-                                {getCartQuantity(selectedItem.id) > 0 && (
-                                    <p className="text-sm text-[#1223A1] font-medium mt-2">
-                                        В корзине: {getCartQuantity(selectedItem.id)}
-                                    </p>
-                                )}
-                            </div>
-                        </div>
-
-                        <div className="flex items-center justify-center space-x-4 mb-6">
-                            <button
-                                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                                className="w-10 h-10 bg-[#FFD483] text-[#734E46] rounded-full flex items-center justify-center text-xl font-bold"
-                            >
-                                -
-                            </button>
-                            <span className="text-2xl font-bold text-[#734E46] w-12 text-center">{quantity}</span>
-                            <button
-                                onClick={() => setQuantity(quantity + 1)}
-                                className="w-10 h-10 bg-[#1223A1] text-white rounded-full flex items-center justify-center text-xl font-bold"
-                            >
-                                +
-                            </button>
-                        </div>
-
-                        <button
-                            onClick={handleAddToCart}
-                            className="w-full bg-[#1223A1] text-white py-4 rounded-lg font-semibold text-lg hover:bg-[#0f1d8a] transition-colors"
-                        >
-                            {quantity > getCartQuantity(selectedItem.id) ? 'Добавить в корзину' : 'Обновить количество'}
-                        </button>
-                        
-                        <p className="text-center text-sm text-[#734E46] mt-2">
-                            ₸{(selectedItem.price * quantity).toFixed(0)}
-                        </p>
-                    </div>
-                </div>
-            )} */}
-
-            {/* Delete Confirmation Modal */}
+            <AnimatePresence>
             {showDeleteModal && itemToDelete && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-lg p-6 w-full max-w-md">
+                <motion.div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                    <motion.div className="bg-white rounded-lg p-6 w-full max-w-md">
                         <h2 className="text-xl font-bold text-[#734E46] mb-4">Удалить из корзины</h2>
                         <p className="text-[#734E46] mb-6">
                             Вы уверены, что хотите удалить "{itemToDelete.name}" из корзины?
@@ -499,9 +422,11 @@ function CatalogPage() {
                                 Удалить
                             </button>
                         </div>
-                    </div>
-                </div>
+                    
+                </motion.div>
+                </motion.div>
             )}
+            </AnimatePresence>
         </div>
     );
 }
