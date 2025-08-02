@@ -24,6 +24,8 @@ export const sendOrderNotification = async (order, user) => {
         // Loop over each chat ID and send notification
         for (const chatId of CHAT_IDS) {
             const payload = { ...payloadBase, chatId: chatId.trim() };
+            console.log('payload is:', payload);
+            console.log('API_URL is:', API_URL);
 
             await axios.post(API_URL, payload);
         }
