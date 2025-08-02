@@ -16,11 +16,29 @@ const webhookUrl = 'https://nucoffee.kz'; // Замените на ваш дом
 // Включаем парсинг JSON
 app.use(express.json());
 
-// Обработчик команды /start
 bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
-    
-    // Создаем кнопку для открытия Mini App
+
+    // ✅ User info
+    const user = msg.from;
+    const userInfo = {
+        id: user.id,
+        is_bot: user.is_bot,
+        first_name: user.first_name,
+        last_name: user.last_name || '',
+        username: user.username || '',
+        language_code: user.language_code || '',
+        timestamp: new Date().toISOString()
+    };
+
+    // 📝 Log to console
+    console.log('👤 New user:', userInfo);
+
+    // 💾 Optionally write to a log file
+    const fs = require('fs');
+    fs.appendFileSync('user_log.json', JSON.stringify(userInfo) + ',\n');
+
+    // 🎯 Send welcome + button
     const keyboard = {
         inline_keyboard: [[
             {
