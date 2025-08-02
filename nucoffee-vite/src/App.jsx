@@ -13,15 +13,20 @@ import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   useEffect(() => {
-    const tg = window.Telegram.WebApp;
-    tg.requestFullscreen();
-    tg.disableVerticalSwipes();
-    const initData = window.Telegram.WebApp.initData;
-    tg.ready();
+    if (window.Telegram && window.Telegram.WebApp) {
+      const tg = window.Telegram.WebApp;
+      tg.requestFullscreen?.();
+      tg.disableVerticalSwipes?.();
 
-    return () => {
-      tg.close(); // Закрытие веб-приложения (при необходимости)
-    };
+      const initData = tg.initData;
+      tg.ready();
+
+      return () => {
+        tg.close?.(); // Optional clean-up if Telegram supports it
+      };
+    } else {
+      console.warn("Telegram WebApp not available. Are you running outside Telegram?");
+    }
   }, []);
 
   return (
