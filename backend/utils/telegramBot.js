@@ -21,6 +21,11 @@ export const sendOrderNotification = async (order, user) => {
             client: order.client
         };
 
+        console.log('CHAT_IDS is:', CHAT_IDS);
+        console.log('API_URL is:', API_URL);    
+        console.log('order is:', order);
+        console.log('payloadBase is:', payloadBase);
+
         // Loop over each chat ID and send notification
         for (const chatId of CHAT_IDS) {
             const payload = { ...payloadBase, chatId: chatId.trim() };
