@@ -12,22 +12,19 @@ import ProfilePage from "./pages/ProfilePage";
 
 
 function App() {
-  useEffect(() => {
-    if (window.Telegram && window.Telegram.WebApp) {
-      const tg = window.Telegram.WebApp;
-      tg.requestFullscreen?.();
-      tg.disableVerticalSwipes?.();
 
-      const initData = tg.initData;
-      tg.ready();
-
-      return () => {
-        tg.close?.(); // Optional clean-up if Telegram supports it
-      };
-    } else {
-      console.warn("Telegram WebApp not available. Are you running outside Telegram?");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const tg = window.Telegram.WebApp;
+  //   tg.requestFullscreen();
+  //   tg.disableVerticalSwipes();
+  //   const initData = window.Telegram.WebApp.initData;
+  //
+  //   tg.ready();
+  //
+  //   return () => {
+  //     tg.close();
+  //   };
+  // }, []);
 
   return (
     <CartProvider>

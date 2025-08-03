@@ -119,7 +119,7 @@ function CartPage() {
 
     if (cart.length === 0) {
         return (
-            <div className="min-h-screen bg-[#EEECD8] p-4 pb-20">
+            <div className="w-[100vw] min-h-screen bg-[#EEECD8] p-4 pb-20">
                 <div className="text-center pt-20">
                     <div className="text-6xl mb-4">🛒</div>
                     <h2 className="text-2xl font-bold text-[#734E46] mb-4">Ваша корзина пуста</h2>
@@ -136,7 +136,7 @@ function CartPage() {
     }
 
     return (
-        <div className="min-h-screen bg-[#EEECD8] p-4 pb-20">
+        <div className="w-[100vw] min-h-screen bg-[#EEECD8] p-4 pb-20">
             {/* Header */}
             <div className="text-center mb-6 pt-8">
                 <h1 className="text-2xl font-bold text-[#734E46] mb-2">Ваша корзина</h1>
