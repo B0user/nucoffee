@@ -14,25 +14,18 @@ import ProfilePage from "./pages/ProfilePage";
 function App() {
 
   useEffect(() => {
-    console.log("Mounted App", window.Telegram);
+    const tg = window.Telegram.WebApp;
+    tg.requestFullscreen();
+    tg.disableVerticalSwipes();
+    const initData = window.Telegram.WebApp.initData;
 
-    const tg = window?.Telegram?.WebApp;
-    if (!tg) {
-      console.warn("Telegram WebApp is not available.");
-      return;
-    }
+    tg.ready();
 
-    try {
-      tg.ready();
-      tg.requestFullscreen?.();
-      tg.disableVerticalSwipes?.();
-      console.log("Telegram WebApp initialized");
-    } catch (e) {
-      console.error("Telegram WebApp error:", e);
-    }
+    // Очистка устаревшего кэша при запуске приложения
+    pageCache.clearExpiredCache();
 
     return () => {
-      tg.close?.();
+      tg.close();
     };
   }, []);
 
