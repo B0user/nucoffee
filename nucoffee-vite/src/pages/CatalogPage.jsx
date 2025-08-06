@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { motion, AnimatePresence } from "framer-motion";
-
+import items from '../assets/items.json';
+import { Tabs, Tab } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 function CatalogPage() {
     const navigate = useNavigate();
@@ -12,6 +14,26 @@ function CatalogPage() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [itemToDelete, setItemToDelete] = useState(null);
     const [quantity, setQuantity] = useState(1);
+
+
+    const categories = [
+        'Все',
+        // 'Кофе с молоком',
+        'Еда',
+        'Айс напитки',
+        // 'Чёрный кофе',
+        // 'Матча и чай',
+        // 'Какао',
+        // 'Новинки',
+    ];
+    
+    const [selectedCategory, setSelectedCategory] = useState('Все');
+    
+    const filteredItems = selectedCategory === 'Все'
+    ? items
+    : items.filter(item => item.category === selectedCategory);
+      
+    
 
     const modalRef = useRef();
 
@@ -49,123 +71,6 @@ function CatalogPage() {
             touchStartY.current = null;
         }
     };
-
-
-
-    const menuItems = [
-        {
-            id: 1,
-            name: 'Айс Латте',
-            price: 1200,
-            description: 'Освежающий холодный латте',
-            category: 'Напитки',
-            image: '/catalog/айс латте.jpeg'
-        },
-        {
-            id: 2,
-            name: 'Мохито Лимонад',
-            price: 800,
-            description: 'Освежающий лимонад с мятой',
-            category: 'Напитки',
-            image: '/catalog/мохито лимонад.jpeg'
-        },
-        {
-            id: 3,
-            name: 'Киви Лайм Лимонад',
-            price: 900,
-            description: 'Освежающий лимонад с киви и лаймом',
-            category: 'Напитки',
-            image: '/catalog/киви лайм лимонад.jpeg'
-        },
-        {
-            id: 4,
-            name: 'Гранат Малина Лимонад',
-            price: 900,
-            description: 'Освежающий лимонад с гранатом и малиной',
-            category: 'Напитки',
-            image: '/catalog/гранат малина лимонад.jpeg'
-        },
-        {
-            id: 5,
-            name: 'Бутер',
-            price: 600,
-            description: 'Свежий бутерброд',
-            category: 'Еда',
-            image: '/catalog/бутер.jpeg'
-        },
-        {
-            id: 6,
-            name: 'Сендвич',
-            price: 800,
-            description: 'Сытный сендвич',
-            category: 'Еда',
-            image: '/catalog/сендвич.jpeg'
-        },
-        {
-            id: 7,
-            name: 'Жесткий Сендвич',
-            price: 1000,
-            description: 'Плотный сендвич',
-            category: 'Еда',
-            image: '/catalog/жесткий сендвич.jpeg'
-        },
-        {
-            id: 8,
-            name: 'Куриный Круасанчикс',
-            price: 1200,
-            description: 'Круасан с курицей',
-            category: 'Еда',
-            image: '/catalog/куриный круасанчикс.jpeg'
-        },
-        {
-            id: 9,
-            name: 'Френчдог',
-            price: 700,
-            description: 'Классический френчдог',
-            category: 'Еда',
-            image: '/catalog/френчдог.jpeg'
-        },
-        {
-            id: 10,
-            name: 'Салат Цезарь',
-            price: 1500,
-            description: 'Свежий салат Цезарь',
-            category: 'Еда',
-            image: '/catalog/салат цезарь.jpeg'
-        },
-        {
-            id: 11,
-            name: 'Сытый Пончик',
-            price: 500,
-            description: 'Вкусный пончик',
-            category: 'Десерты',
-            image: '/catalog/сытый пончик.jpeg'
-        },
-        {
-            id: 12,
-            name: 'Шоколадный Моти',
-            price: 600,
-            description: 'Моти с шоколадом',
-            category: 'Десерты',
-            image: '/catalog/шоколадный моти.jpeg'
-        },
-        {
-            id: 13,
-            name: 'Фисташковый Моти',
-            price: 600,
-            description: 'Моти с фисташками',
-            category: 'Десерты',
-            image: '/catalog/фисташковый моти.jpeg'
-        },
-        {
-            id: 14,
-            name: 'Баунти Моти',
-            price: 600,
-            description: 'Моти со вкусом баунти',
-            category: 'Десерты',
-            image: '/catalog/баунти моти.jpeg'
-        }
-    ];
 
     const openModal = (item) => {
         setSelectedItem(item);
@@ -233,72 +138,99 @@ function CatalogPage() {
                     {getCartCount()}
                 </div>
             )}
-
-            {/* Menu Items */}
-            <div className="grid grid-cols-1 gap-4">
-                {menuItems.map((item) => {
-                    const cartQuantity = getCartQuantity(item.id);
-                    return (
-                        <div key={item.id} className="bg-white rounded-lg p-4 shadow-md">
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center space-x-4">
-                                    <div className="w-16 h-16 bg-[#FFD483] rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img 
-                                            src={item.image} 
-                                            alt={item.name}
-                                            className="w-full h-full object-cover"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-[#FFD483] rounded-lg flex items-center justify-center text-2xl" style={{display: 'none'}}>
-                                            🍽️
-                                        </div>
-                                    </div>
-                                    <div className="flex-1">
-                                        <h3 className="font-semibold text-[#734E46]">{item.name}</h3>
-                                        <p className="text-sm text-[#734E46]">{item.description}</p>
-                                        <p className="text-sm text-[#734E46]">{item.category}</p>
-                                        {cartQuantity > 0 && (
-                                            <p className="text-sm text-[#1223A1] font-medium">
-                                                В корзине: {cartQuantity}
-                                            </p>
-                                        )}
-                                    </div>
-                                </div>
-                                <div className="text-right">
-                                    <p className="font-semibold text-[#734E46]">₸{item.price.toFixed(0)}</p>
-                                    <div className="flex space-x-2 mt-2">
-                                        <button
-                                            onClick={() => openModal(item)}
-                                            className="bg-[#1223A1] text-white px-3 py-2 rounded-lg text-sm hover:bg-[#0f1d8a] transition-colors"
-                                        >
-                                            Добавить
-                                        </button>
-                                        {cartQuantity > 0 && (
-                                            <button
-                                                onClick={() => handleDeleteClick(item)}
-                                                className="bg-red-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-red-600 transition-colors"
-                                            >
-                                                ✕
-                                            </button>
-                                        )}
-                                        {/* {cartQuantity > 0 && (
-                                            <button
-                                                onClick={() => navigate('/cart')}
-                                                className="bg-[#FFD483] text-[#734E46] px-3 py-2 rounded-lg text-sm hover:bg-[#f0c870] transition-colors"
-                                            >
-                                                Корзина
-                                            </button>
-                                        )} */}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    );
-                })}
+            <div className="max-w-screen-lg mx-auto px-4 overflow-x-hidden">
+                
+            <div className="mb-4 overflow-x-auto w-[80vw]">
+                <Tabs
+                    value={selectedCategory}
+                    onChange={(e, newValue) => setSelectedCategory(newValue)}
+                    variant="scrollable"
+                    scrollButtons="auto"
+                    textColor="primary"
+                    indicatorColor="primary"
+                >
+                    {categories.map((category) => (
+                        <Tab
+                            key={category}
+                            label={category}
+                            value={category}
+                            sx={{
+                                fontWeight: 600,
+                                textTransform: 'none',
+                                color: '#734E46',
+                                minWidth: 'fit-content'
+                            }}
+                        />
+                    ))}
+                </Tabs>
             </div>
+
+
+
+
+                {/* Menu Items */}
+                <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
+                    {filteredItems.map((item) => {
+                        const cartQuantity = getCartQuantity(item.id);
+                        return (
+                            <div 
+                                key={item.id}
+                                onClick={() => openModal(item)}
+                                className="bg-white rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow flex flex-col relative"
+                                >
+                                {/* Quantity Badge */}
+                                {/* Количество + кнопка удаления */}
+                                {cartQuantity > 0 && (
+                                    <div className="absolute top-2 right-2 flex items-center gap-1 z-10">
+                                    <div className="bg-[#1223A1] text-white text-xs font-semibold px-2 py-1 rounded-full">
+                                        {cartQuantity} в корзине
+                                    </div>
+                                    <button
+                                        onClick={(e) => {
+                                        e.stopPropagation(); // чтобы не открывалась модалка
+                                        removeFromCart(item.id); // твоя функция удаления
+                                        }}
+                                        className="text-white bg-red-500 hover:bg-red-600 w-6 h-6 flex items-center justify-center rounded-full"
+                                        title="Удалить из корзины"
+                                        >
+                                        <CloseIcon sx={{ fontSize: 16 }} />
+                                        </button>
+                                    </div>
+                                )}
+
+                                {/* Image Section */}
+                                <div className="w-full h-40 bg-[#FFD483] rounded-t-lg overflow-hidden flex items-center justify-center">
+                                    <img 
+                                    src={item.image}
+                                    alt={item.name}
+                                    className="w-full h-full object-cover"
+                                    onError={(e) => {
+                                        e.target.style.display = 'none';
+                                        e.target.nextSibling.style.display = 'flex';
+                                    }}
+                                    />
+                                    <div className="w-full h-full bg-[#FFD483] flex items-center justify-center text-3xl" style={{ display: 'none' }}>
+                                    🍽️
+                                    </div>
+                                </div>
+
+                                {/* Info Section */}
+                                <div className="p-4 flex flex-col h-1/2 justify-between">
+                                    <div>
+                                    <h3 className="font-semibold text-[#734E46] text-lg">{item.name}</h3>
+                                    </div>
+                                    <div className="mt-1 flex justify-between items-center text-[#734E46] font-medium text-base">
+                                    <span>₸{item.price.toFixed(0)}</span>
+                                    <span className="text-[#1223A1] text-xl">→</span>
+                                    </div>
+                                </div>
+                                </div>
+
+                        );
+                    })}
+                </div>
+            </div>
+
 
             {/* Floating Cart Button */}
             {getCartCount() > 0 && (

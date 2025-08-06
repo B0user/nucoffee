@@ -1,0 +1,107 @@
+[
+    {
+      "id": 1,
+      "name": "Айс Латте",
+      "price": 1090,
+      "description": "Освежающая классика: молоко, эспрессо, лед",
+      "category": "Айс напитки",
+      "image": "/catalog/айс латте.jpeg"
+    },
+    {
+      "id": 2,
+      "name": "Мохито Лимонад",
+      "price": 990,
+      "description": "Освежающий лимонад с мятой",
+      "category": "Айс напитки",
+      "image": "/catalog/мохито лимонад.jpeg"
+    },
+    {
+      "id": 3,
+      "name": "Киви Лайм Лимонад",
+      "price": 990,
+      "description": "Освежающий лимонад с киви и лаймом",
+      "category": "Айс напитки",
+      "image": "/catalog/киви лайм лимонад.jpeg"
+    },
+    {
+      "id": 4,
+      "name": "Гранат Малина Лимонад",
+      "price": 990,
+      "description": "Освежающий лимонад с гранатом и малиной",
+      "category": "Айс напитки",
+      "image": "/catalog/гранат малина лимонад.jpeg"
+    },
+    {
+      "id": 5,
+      "name": "Панини с курицей",
+      "price": 1050,
+      "description": "Свежий бутерброд",
+      "category": "Еда",
+      "image": "/catalog/бутер.jpeg"
+    },
+    {
+      "id": 6,
+      "name": "Клаб сэндвич с курицей",
+      "price": 1050,
+      "description": "Сытный сэндвич",
+      "category": "Еда",
+      "image": "/catalog/сендвич.jpeg"
+    },
+    {
+      "id": 7,
+      "name": "Круасан с курицей",
+      "price": 1050,
+      "description": "Круасан с курицей",
+      "category": "Еда",
+      "image": "/catalog/куриный круасанчикс.jpeg"
+    },
+    {
+      "id": 8,
+      "name": "Френчдог",
+      "price": 900,
+      "description": "Классический френчдог",
+      "category": "Еда",
+      "image": "/catalog/френчдог.jpeg"
+    },
+    {
+      "id": 9,
+      "name": "Салат Цезарь",
+      "price": 900,
+      "description": "Свежий салат Цезарь",
+      "category": "Еда",
+      "image": "/catalog/салат цезарь.jpeg"
+    },
+    {
+      "id": 10,
+      "name": "Ржанной бейгл с курицей",
+      "price": 1200,
+      "description": "Вкусный пончик",
+      "category": "Еда",
+      "image": "/catalog/сытый пончик.jpeg"
+    },
+    {
+      "id": 11,
+      "name": "Шоколадный Моти",
+      "price": 950,
+      "description": "Моти с шоколадом",
+      "category": "Еда",
+      "image": "/catalog/шоколадный моти.jpeg"
+    },
+    {
+      "id": 12,
+      "name": "Фисташковый Моти",
+      "price": 950,
+      "description": "Моти с фисташками",
+      "category": "Еда",
+      "image": "/catalog/фисташковый моти.jpeg"
+    },
+    {
+      "id": 13,
+      "name": "Баунти Моти",
+      "price": 950,
+      "description": "Моти со вкусом баунти",
+      "category": "Еда",
+      "image": "/catalog/баунти моти.jpeg"
+    }
+]
+  

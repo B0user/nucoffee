@@ -30,27 +30,6 @@ function HomePage() {
                 </button>
             </div>
 
-            {/* Featured Items */}
-            <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
-                <h3 className="text-lg font-semibold text-[#734E46] mb-4">Специальные предложения дня</h3>
-                <div className="grid grid-cols-2 gap-4">
-                    <div className="text-center">
-                        <div className="w-16 h-16 bg-[#FFD483] rounded-full mx-auto mb-2 flex items-center justify-center">
-                            <span className="text-2xl">☕</span>
-                        </div>
-                        <p className="text-sm font-medium text-[#734E46]">Айс Латте</p>
-                        <p className="text-xs text-[#734E46]">₸1200</p>
-                    </div>
-                    <div className="text-center">
-                        <div className="w-16 h-16 bg-[#FFD483] rounded-full mx-auto mb-2 flex items-center justify-center">
-                            <span className="text-2xl">🥛</span>
-                        </div>
-                        <p className="text-sm font-medium text-[#734E46]">Мохито Лимонад</p>
-                        <p className="text-xs text-[#734E46]">₸800</p>
-                    </div>
-                </div>
-            </div>
-
             {/* Quick Actions */}
             <div className="grid grid-cols-2 gap-4">
                 <button 
